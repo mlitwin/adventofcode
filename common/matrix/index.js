@@ -6,11 +6,21 @@ function Matrix(m, n) {
     }
   }
   Matrix.prototype = [];
+
   Matrix.prototype.eachRow = function (f) {
     for (let j = 0; j < this.m; j++) {
       f(this[j], j);
     }
   }
+
+  Matrix.prototype.eachElement = function (f) {
+    for (let i = 0; i < this.m; i++) {
+      for(let j = 0; j< this.n; j++ ) {
+          f(this[i][j], i, j, this);
+      }
+    }
+  }
+
   Matrix.prototype.print = function () {
     this.eachRow(r => {
       console.log(r.join(' '));
