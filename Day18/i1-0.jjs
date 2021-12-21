@@ -1,0 +1,66 @@
+const fs = require("fs");
+const buffer = fs.readFileSync("i2.txt");
+const fileContent = buffer.toString();
+
+const lines = fileContent.split(/\n/);
+
+
+
+function parseSN(input) {
+    const c = input.shift();
+    if( /^\d$/.test(c)) {
+        return parseInt(c, 10);
+    }
+    const l = parseSN(input);
+    const comma = input.shift();
+    const r = parseSN(input);
+    const rbracked = input.shift();
+
+    return {
+        l: l,
+        r: r
+    }
+}
+
+function printSN(sn) {
+    if(typeof sn === "number") {
+        console.log(sn);
+        return;
+    }
+    console.log('[');
+    printSN(sn.l);
+    console.log(',');
+    printSN(sn.r);
+    console.log(']');
+}
+
+let sum;
+
+lines.forEach(l => {
+    const s = parseSN(l.split(''));
+    //printSN(s);
+   // console.log('...................')
+    if(!sum) {
+        sum = s;
+    } else {
+        sum = {
+            l: s,
+            r: sum
+        };
+    }
+});
+
+function left4(sn, depth) {
+    if(depth === 4) return sn;
+    if(typeof sn === "number") return null;
+    const l = left4(sn.l, depth+1);
+
+    if(l) return l;
+    const r = left4(sn.r, depth+1);
+    return r;
+}
+
+const f = left4(sum, 0);
+printSN(f);
+
+
