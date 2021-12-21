@@ -7,4 +7,4 @@ Due to gravity, the probe's y velocity decreases by 1.
 
 
 x = n * vx - (n-1)n/2
-y = n * vy + (n-1)/2
+y = n * vy + (n-1)n/2

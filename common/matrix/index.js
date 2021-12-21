@@ -1,10 +1,26 @@
 function Matrix(m, n) {
+    if(typeof m === 'string') {
+
+      const lines = m.split("\n");
+      lines.forEach(l => {
+        l = l.trim();
+
+        if(l.length) {
+          const row = l.split(/\s+/).map(v => parseInt(v));
+          this.push(row);
+        }
+      });
+      this.m = this.length;
+      this.n = this[0].length;
+      return;
+    }
     this.m = m;
     this.n = n;
     for (let j = 0; j < m; j++) {
       this.push(new Array(n).fill(0));
     }
   }
+
   Matrix.prototype = [];
 
   Matrix.prototype.eachRow = function (f) {
